@@ -36,3 +36,10 @@ A successfully passing test(s) that demonstrates the following output: (The form
   2 x 5 $1800
   1 x 3 $570
 ```
+
+### Solution:
+For IMG and FLAC, because 10 is one of the multiples of 5, 9 and 6 are all multiples of 3.
+Thus, try the largest bundle first and try the next one.
+
+As for VID, the situation is being more complicated than IMG and FLAC. In this case, my solution is using exhaustive 
+sampling to find the optimal solution. 
