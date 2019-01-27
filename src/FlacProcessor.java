@@ -11,11 +11,11 @@ public class FlacProcessor extends Processor {
         double sum = bundle_9 * 1147.5 + bundle_6 * 810 + bundle_3 * 427.5;
         // print the result
         System.out.println(num + " FLAC $" + sum);
-        if (bundle_9!=0)
+        if (bundle_9 != 0)
             System.out.println("    " + bundle_9 + " x 9 $1147.50");
-        if (bundle_6!=0)
+        if (bundle_6 != 0)
             System.out.println("    " + bundle_6 + " x 6 $810");
-        if (bundle_3!=0)
+        if (bundle_3 != 0)
             System.out.println("    " + bundle_3 + " x 3 $427.50");
     }
 }

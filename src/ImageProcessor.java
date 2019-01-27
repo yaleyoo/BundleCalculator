@@ -1,4 +1,4 @@
-public class ImageProcessor extends Processor{
+public class ImageProcessor extends Processor {
     @Override
     public void process(int num) {
         // IMG: 5 @ 450, 10 @ 800
@@ -8,9 +8,9 @@ public class ImageProcessor extends Processor{
         int sum = 800 * bundle_10 + 450 * bundle_5;
         // print the result
         System.out.println(num + " IMG $" + sum);
-        if (bundle_10!=0)
+        if (bundle_10 != 0)
             System.out.println("    " + bundle_10 + " x 10 $800");
-        if (bundle_5!=0)
+        if (bundle_5 != 0)
             System.out.println("    " + bundle_5 + " x 5 $450");
     }
 }
