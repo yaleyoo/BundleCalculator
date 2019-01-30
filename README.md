@@ -43,3 +43,6 @@ Thus, try the largest bundle first and try the next one.
 
 As for VID, the situation is being more complicated than IMG and FLAC. In this case, my solution is using exhaustive 
 sampling to find the optimal solution. 
+
+### Run:
+- Required jdk 1.8+
