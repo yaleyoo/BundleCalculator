@@ -15,7 +15,7 @@ public class OrderItem {
     public static OrderItem parseItem(String input) throws NumberFormatException, FormatNotFoundException, IndexOutOfBoundsException{
         String[] input_data = input.split(" ");
         // extract 1st arg - number of items
-        int num = Integer.parseInt(input_data[0]);
+        int num = Integer.parseUnsignedInt(input_data[0]);
         // extract 2nd arg - submission format code
         String fmt;
         if (!FmtCode.fmtCodes.contains(input_data[1].toUpperCase())) {

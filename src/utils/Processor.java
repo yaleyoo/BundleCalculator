@@ -52,7 +52,7 @@ public class Processor {
                 // return true (will ESCAPE the recursion), when found the best solution, which the remainder is 0.
                 copy.getDetail().forEach((bundle, quantity) -> {
                     if (bundle.getSize() == max) {
-                        copy.getDetail().put(bundle, quantity + remain/max);
+                        copy.getDetail().put(bundle, remain/max);
                     }
                 });
                 copy.setOffset(0);
@@ -63,21 +63,22 @@ public class Processor {
             if (copy.getOffset() < optimal.getOffset()) {
                 copy.getDetail().forEach((bundle, quantity) -> {
                     if (bundle.getSize() == max) {
-                        copy.getDetail().put(bundle, quantity + remain/max + 1);
+                        copy.getDetail().put(bundle, remain/max + 1);
                     }
                 });
                 optimal = copy;
                 return false;
             }
+            return false;
         }
 
         // 递归主体
         // MAIN BODY of RECURSION
-        for (int i=0; i<remain/max; i++){
+        for (int i=0; i<=remain/max; i++){
             int finalI = i;
             copy.getDetail().forEach((bundle, quantity) -> {
                 if (bundle.getSize() == max) {
-                    copy.getDetail().put(bundle, quantity + finalI);
+                    copy.getDetail().put(bundle, finalI);
                 }
             });
 
