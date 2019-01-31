@@ -1,12 +1,26 @@
 package model;
 
+import config.AvailableBundles;
+
+import java.util.HashMap;
 import java.util.Map;
 
 public class ResultItem {
     private OrderItem orderItem;
     private double sum;
     private Map<Bundle, Integer> detail;
+    private int offset;
 
+    public ResultItem(){
+        super();
+    }
+
+    public ResultItem(OrderItem orderItem){
+        detail = new HashMap<>();
+        this.orderItem = orderItem;
+        AvailableBundles.availableBundles.get(orderItem.getFormatCode())
+                .forEach(bundle -> this.detail.put(bundle, 0));
+    }
 
     public OrderItem getOrderItem() {
         return orderItem;
@@ -30,5 +44,13 @@ public class ResultItem {
 
     public void setDetail(Map<Bundle, Integer> detail) {
         this.detail = detail;
+    }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
     }
 }

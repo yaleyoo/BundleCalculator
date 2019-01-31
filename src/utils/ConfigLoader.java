@@ -27,7 +27,7 @@ public class ConfigLoader {
                 // initiate Available Bundles
                 Arrays.asList(line.split(",")[2].split(" ")).forEach(bundles -> {
                     Bundle bundle = new Bundle(Integer.parseInt(bundles.split("@\\$")[0]),
-                            line.split(",")[1],
+                            line.split(",")[1].toUpperCase(),
                             Double.parseDouble(bundles.split("@\\$")[1]));
                     Optional<List<Bundle>> bundleMap = ofNullable(
                             AvailableBundles.availableBundles.getOrDefault(bundle.getType(), new ArrayList<>()));
