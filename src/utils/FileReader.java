@@ -1,7 +1,6 @@
 package utils;
 
 import com.oracle.tools.packager.Log;
-import exception.UnknownException;
 
 import java.io.IOException;
 import java.nio.file.Files;

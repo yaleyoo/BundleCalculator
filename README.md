@@ -46,3 +46,20 @@ sampling to find the optimal solution.
 
 ### Run:
 - Required jdk 1.8+
+- Define the inputs and example (given example in inputFormat.txt and submissionFormat.txt). ***NOTE: Don't Modify the File Name!***
+    - *inputFormat.txt*
+    
+        Define your inputs in this file. In format of:
+        
+        'quantity formatCode'
+        
+        **e.g.**
+        > 11 VID
+    - *submissionFormat.txt*
+    
+        Define your Submission format and Bundles in this file. In format of: 
+        
+        'Submission,FormatCode,n@priceOfBundel1 n@priceOfBundle2'
+        
+        **e.g.** 
+        > Image,IMG,5@$450 10@$800

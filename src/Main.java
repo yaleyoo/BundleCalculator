@@ -1,20 +1,16 @@
 import model.*;
-import exception.*;
 import utils.ConfigLoader;
 import utils.InputLoader;
 import utils.Processor;
-
-import java.util.*;
+import utils.ResultPrinter;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        ConfigLoader.loadConfigFile("./submissionFormat.csv");
-        Order order = InputLoader.loadInputFile("./inputFormat.csv");
-        Result r = Processor.process(order);
-        System.out.println("ss");
-
+        ConfigLoader.loadConfigFile("resources/submissionFormat.txt");
+        Order order = InputLoader.loadInputFile("resources/inputFormat.txt");
+        ResultPrinter.printResult(Processor.process(order));
     }
 
 }

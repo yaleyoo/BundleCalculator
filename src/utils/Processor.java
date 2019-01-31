@@ -27,7 +27,9 @@ public class Processor {
 
         recursive(item.getQuantity(), bundleList, new ResultItem(item));
 
-        return deepCopy(optimal);
+        optimal.getDetail().forEach(((bundle, integer) -> optimal.setSum(optimal.getSum() + bundle.getPrice() * integer)));
+
+        return optimal;
     }
 
     /**
@@ -41,6 +43,7 @@ public class Processor {
         int max = (int) bundleList.get(0);
         ResultItem copy = deepCopy(resultItem);
 
+        // 递归底部
         // The bottom of the recursion, when only ONE bundle left in the list
         if (bundleList.size() == 1){
             if (remain % (int) bundleList.get(0) != 0)
@@ -68,6 +71,7 @@ public class Processor {
             }
         }
 
+        // 递归主体
         // MAIN BODY of RECURSION
         for (int i=0; i<remain/max; i++){
             int finalI = i;

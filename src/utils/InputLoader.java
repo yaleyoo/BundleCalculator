@@ -16,11 +16,11 @@ public class InputLoader {
             try {
                 order.addItem(OrderItem.parseItem(item));
             } catch (NumberFormatException e){
-                Log.info("[EXCEPTION] - Number Parsing Exception, please check inputFormat.csv");
+                Log.info("[EXCEPTION] - Number Parsing Exception, please check inputFormat.txt");
             } catch (FormatNotFoundException e){
                 Log.info(e.getMessage());
             } catch (IndexOutOfBoundsException e){
-                Log.info("[EXCEPTION] - Index Out of Bounds, please check inputFormat.csv");
+                Log.info("[EXCEPTION] - Index Out of Bounds, please check inputFormat.txt");
             } catch (Exception e){
                 e.printStackTrace();
             }

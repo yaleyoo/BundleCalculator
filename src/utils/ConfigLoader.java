@@ -3,7 +3,6 @@ package utils;
 import com.oracle.tools.packager.Log;
 import config.AvailableBundles;
 import config.FmtCode;
-import exception.UnknownException;
 import model.Bundle;
 
 import java.util.*;
@@ -37,9 +36,9 @@ public class ConfigLoader {
                     });
                 });
             } catch (IndexOutOfBoundsException e){
-                Log.info("[EXCEPTION] - Index Out of Bounds, please check submissionFormat.csv");
+                Log.info("[EXCEPTION] - Index Out of Bounds, please check submissionFormat.txt");
             } catch (NumberFormatException e){
-                Log.info("[EXCEPTION] - Number Parsing Exception, please check submissionFormat.csv");
+                Log.info("[EXCEPTION] - Number Parsing Exception, please check submissionFormat.txt");
             } catch (Exception e){
                 e.printStackTrace();
             }
