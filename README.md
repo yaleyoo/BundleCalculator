@@ -38,11 +38,17 @@ A successfully passing test(s) that demonstrates the following output: (The form
 ```
 
 ### Solution:
-For IMG and FLAC, because 10 is one of the multiples of 5, 9 and 6 are all multiples of 3.
-Thus, try the largest bundle first and try the next one.
+Given a list of bundle size [9,5,3], iterate all the possible combination of 9.
 
-As for VID, the situation is being more complicated than IMG and FLAC. In this case, my solution is using exhaustive 
-sampling to find the optimal solution. 
+For example, in case of input number is 19:
+1. Case 1: the combination with no 9. [0,19]
+2. Case 2: the combination with a 9. [9,10]
+3. Case 3: the combination with two 9. [18,1]
+
+For each of those combinations, recursively find out the possible combinations of the remaining part.
+For example, the remainder of Case 1 is 19, then iterate all the possible combination of 5.
+
+Until reach the very last element in the bundle list. Using the last bundle to fill the remainder.
 
 ### Run:
 - Required jdk 1.8+

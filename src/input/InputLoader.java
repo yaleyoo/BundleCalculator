@@ -1,9 +1,10 @@
-package utils;
+package input;
 
 import com.oracle.tools.packager.Log;
 import exception.FormatNotFoundException;
 import model.Order;
 import model.OrderItem;
+import utils.FileReader;
 
 import java.util.List;
 

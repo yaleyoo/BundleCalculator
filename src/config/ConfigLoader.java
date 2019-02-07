@@ -1,9 +1,8 @@
-package utils;
+package config;
 
 import com.oracle.tools.packager.Log;
-import config.AvailableBundles;
-import config.FmtCode;
 import model.Bundle;
+import utils.FileReader;
 
 import java.util.*;
 

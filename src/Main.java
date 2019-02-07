@@ -1,11 +1,8 @@
 import model.*;
-import utils.ConfigLoader;
-import utils.InputLoader;
-import utils.Processor;
-import utils.ResultPrinter;
-
-import java.util.ArrayList;
-import java.util.List;
+import config.ConfigLoader;
+import input.InputLoader;
+import processor.Processor;
+import output.ResultPrinter;
 
 public class Main {
 
