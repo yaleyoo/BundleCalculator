@@ -1,13 +1,15 @@
 package model;
 
-import com.oracle.tools.packager.Log;
 import config.LegalFmtCodes;
 import exception.FormatNotFoundException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
+    private static final Logger logger = LogManager.getLogger(Order.class);
     private List<OrderItem> itemList;
 
     public Order(){
@@ -21,12 +23,19 @@ public class Order {
                 orderItem.parseItem(item, legalFmtCodes);
                 this.itemList.add(orderItem);
             } catch (NumberFormatException e) {
-                System.out.println("[EXCEPTION] - Number Parsing Exception, please check inputFormat.txt");
+                logger.error("The input should be in format of \"Integer FormatCode\"; " +
+                        "Please check submissionFormat.txt in line: " + inputs.indexOf(item));
+                e.printStackTrace();
             } catch (FormatNotFoundException e) {
-                System.out.println(e.getMessage());
+                logger.error("The input Format Code is not exist; " +
+                        "Please check submissionFormat.txt in line: " + inputs.indexOf(item));
+                e.printStackTrace();
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("[EXCEPTION] - Index Out of Bounds, please check inputFormat.txt");
+                logger.error("The input should contain exactly 2 arguments and separated by \" \"; " +
+                        "Please check submissionFormat.txt in line: " + inputs.indexOf(item));
+                e.printStackTrace();
             } catch (Exception e) {
+                logger.error("Encounter unexpected exception in submissionFormat.txt in line: " + inputs.indexOf(item));
                 e.printStackTrace();
             }
         });

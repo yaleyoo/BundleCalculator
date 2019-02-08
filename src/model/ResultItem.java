@@ -1,6 +1,5 @@
 package model;
 
-import config.AvailableBundles;
 import config.ConfigLoader;
 
 import java.util.HashMap;
