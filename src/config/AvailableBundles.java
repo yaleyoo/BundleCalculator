@@ -42,4 +42,11 @@ public class AvailableBundles {
     public List<Bundle> getBundle(String fmtCode){
         return this.availableBundles.get(fmtCode);
     }
+
+    public List mapToReverseListBySize(List<Bundle> bundles){
+        return Arrays.asList(bundles.stream()
+                .map(Bundle::getSize)
+                .sorted(Comparator.reverseOrder())
+                .toArray());
+    }
 }

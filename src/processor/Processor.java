@@ -19,11 +19,9 @@ public class Processor {
         // initialize the optimal result when processing every item
         optimal = new ResultItem();
         optimal.setOffset(999);
-        List bundleList = Arrays.asList(configLoader.getAvailableBundles().getBundle(item.getFormatCode())
-                .stream()
-                .map(Bundle::getSize)
-                .sorted(Comparator.reverseOrder())
-                .toArray());
+        List bundleList = configLoader.getAvailableBundles()
+                .mapToReverseListBySize(
+                        configLoader.getAvailableBundles().getBundle(item.getFormatCode()));
 
         recursive(item.getQuantity(), bundleList, new ResultItem(item, configLoader));
 
@@ -46,30 +44,7 @@ public class Processor {
         // 递归底部
         // The bottom of the recursion, when only ONE bundle left in the list
         if (bundleList.size() == 1){
-            if (remain % (int) bundleList.get(0) != 0)
-                copy.setOffset((int) bundleList.get(0) - remain % (int) bundleList.get(0));
-            else {
-                // return true (will ESCAPE the recursion), when found the best solution, which the remainder is 0.
-                copy.getDetail().forEach((bundle, quantity) -> {
-                    if (bundle.getSize() == max) {
-                        copy.getDetail().put(bundle, remain/max);
-                    }
-                });
-                copy.setOffset(0);
-                optimal = copy;
-                return true;
-            }
-            // return false (will CONTINUE the recursion), when found a better solution, but the remainder is greater than 0.
-            if (copy.getOffset() < optimal.getOffset()) {
-                copy.getDetail().forEach((bundle, quantity) -> {
-                    if (bundle.getSize() == max) {
-                        copy.getDetail().put(bundle, remain/max + 1);
-                    }
-                });
-                optimal = copy;
-                return false;
-            }
-            return false;
+            return hasOptimalFound(remain, bundleList, copy, max);
         }
 
         // 递归主体
@@ -102,4 +77,30 @@ public class Processor {
         return copy;
     }
 
+    private boolean hasOptimalFound(int remain, List bundleList, ResultItem copy, int max){
+        if (remain % (int) bundleList.get(0) != 0)
+            copy.setOffset((int) bundleList.get(0) - remain % (int) bundleList.get(0));
+        else {
+            // return true (will ESCAPE the recursion), when found the best solution, which the remainder is 0.
+            copy.getDetail().forEach((bundle, quantity) -> {
+                if (bundle.getSize() == max) {
+                    copy.getDetail().put(bundle, remain/max);
+                }
+            });
+            copy.setOffset(0);
+            optimal = copy;
+            return true;
+        }
+        // return false (will CONTINUE the recursion), when found a better solution, but the remainder is greater than 0.
+        if (copy.getOffset() < optimal.getOffset()) {
+            copy.getDetail().forEach((bundle, quantity) -> {
+                if (bundle.getSize() == max) {
+                    copy.getDetail().put(bundle, remain/max + 1);
+                }
+            });
+            optimal = copy;
+            return false;
+        }
+        return false;
+    }
 }
