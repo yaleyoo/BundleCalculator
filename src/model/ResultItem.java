@@ -1,6 +1,7 @@
 package model;
 
 import config.AvailableBundles;
+import config.ConfigLoader;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,10 +16,10 @@ public class ResultItem {
         super();
     }
 
-    public ResultItem(OrderItem orderItem){
+    public ResultItem(OrderItem orderItem, ConfigLoader configLoader){
         detail = new HashMap<>();
         this.orderItem = orderItem;
-        AvailableBundles.availableBundles.get(orderItem.getFormatCode())
+        configLoader.getAvailableBundles().getBundle(orderItem.getFormatCode())
                 .forEach(bundle -> this.detail.put(bundle, 0));
     }
 

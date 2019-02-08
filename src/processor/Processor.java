@@ -1,31 +1,31 @@
 package processor;
 
-import config.AvailableBundles;
+import config.ConfigLoader;
 import model.*;
 
 import java.util.*;
 
 public class Processor {
-    private static ResultItem optimal;
+    private ResultItem optimal;
 
-    public static Result process(Order order){
+    public Result process(Order order, ConfigLoader configLoader){
         Result result = new Result();
-        order.getItemList().forEach(item -> result.add(processItem(item)));
+        order.getItemList().forEach(item -> result.add(processItem(item, configLoader)));
 
         return result;
     }
 
-    private static ResultItem processItem(OrderItem item){
+    private ResultItem processItem(OrderItem item, ConfigLoader configLoader){
         // initialize the optimal result when processing every item
         optimal = new ResultItem();
         optimal.setOffset(999);
-        List bundleList = Arrays.asList(AvailableBundles.availableBundles.get(item.getFormatCode())
+        List bundleList = Arrays.asList(configLoader.getAvailableBundles().getBundle(item.getFormatCode())
                 .stream()
                 .map(Bundle::getSize)
                 .sorted(Comparator.reverseOrder())
                 .toArray());
 
-        recursive(item.getQuantity(), bundleList, new ResultItem(item));
+        recursive(item.getQuantity(), bundleList, new ResultItem(item, configLoader));
 
         optimal.getDetail().forEach(((bundle, integer) -> optimal.setSum(optimal.getSum() + bundle.getPrice() * integer)));
 
@@ -39,7 +39,7 @@ public class Processor {
      * @param resultItem Result
      * @return Whether the optimal solution has been found?
      */
-    private static boolean recursive(int remain, List bundleList, ResultItem resultItem){
+    private boolean recursive(int remain, List bundleList, ResultItem resultItem){
         int max = (int) bundleList.get(0);
         ResultItem copy = deepCopy(resultItem);
 
@@ -89,7 +89,7 @@ public class Processor {
         return false;
     }
 
-    private static ResultItem deepCopy(ResultItem origin){
+    private ResultItem deepCopy(ResultItem origin){
         ResultItem copy = new ResultItem();
         Map<Bundle, Integer> detail = new HashMap<>();
         origin.getDetail().forEach((detail::put));

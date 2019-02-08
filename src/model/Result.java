@@ -18,7 +18,4 @@ public class Result {
         return resultItemList;
     }
 
-    public void setResultItemList(List<ResultItem> resultItemList) {
-        this.resultItemList = resultItemList;
-    }
 }

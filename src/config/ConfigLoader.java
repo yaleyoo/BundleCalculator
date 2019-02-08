@@ -1,46 +1,46 @@
 package config;
 
 import com.oracle.tools.packager.Log;
-import model.Bundle;
 import utils.FileReader;
 
 import java.util.*;
 
-import static java.util.Optional.ofNullable;
-
 public class ConfigLoader {
-    public static void loadConfigFile(String url){
-        Optional<List<String>> configFile = ofNullable(FileReader.readFile(url));
-        configFile.ifPresent(ConfigLoader::loadConfig);
+    private LegalFmtCodes legalFmtCodes;
+    private AvailableBundles availableBundles;
+    public void loadConfigFile(String url){
+        Optional<List<String>> configFile = FileReader.readFile(url);
+        configFile.ifPresent(this::loadConfig);
     }
 
-    private static void loadConfig(List<String> config){
+    private void loadConfig(List<String> config){
+        this.legalFmtCodes = new LegalFmtCodes();
+        this.availableBundles = new AvailableBundles();
         config.forEach(line->{
             try {
                 // initiate Format Codes
-                FmtCode.fmtCodes.add(line.split(",")[1].toUpperCase());
-                // ======================= //
-                // = 感觉写成链式可读性很差 = //
-                // ======================= //
+                legalFmtCodes.addFmtCode(line);
                 // initiate Available Bundles
-                Arrays.asList(line.split(",")[2].split(" ")).forEach(bundles -> {
-                    Bundle bundle = new Bundle(Integer.parseInt(bundles.split("@\\$")[0]),
-                            line.split(",")[1].toUpperCase(),
-                            Double.parseDouble(bundles.split("@\\$")[1]));
-                    Optional<List<Bundle>> bundleMap = ofNullable(
-                            AvailableBundles.availableBundles.getOrDefault(bundle.getType(), new ArrayList<>()));
-                    bundleMap.ifPresent(b->{
-                        b.add(bundle);
-                        AvailableBundles.availableBundles.put(bundle.getType(), b);
-                    });
-                });
+                availableBundles.addBundle(line);
             } catch (IndexOutOfBoundsException e){
-                Log.info("[EXCEPTION] - Index Out of Bounds, please check submissionFormat.txt");
+                Log.info("[EXCEPTION] - The input should contain exactly 3 arguments and separated by \",\";  " +
+                        "Please check submissionFormat.txt in line: " + config.indexOf(line));
+                e.printStackTrace();
             } catch (NumberFormatException e){
-                Log.info("[EXCEPTION] - Number Parsing Exception, please check submissionFormat.txt");
+                Log.info("[EXCEPTION] - The input of bundle details should be in format of Integer@$Double. " +
+                        "Please check submissionFormat.txt in line: " + config.indexOf(line));
+                e.printStackTrace();
             } catch (Exception e){
                 e.printStackTrace();
             }
         });
+    }
+
+    public LegalFmtCodes getLegalFmtCodes() {
+        return legalFmtCodes;
+    }
+
+    public AvailableBundles getAvailableBundles() {
+        return availableBundles;
     }
 }
